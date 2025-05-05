@@ -8,20 +8,21 @@ function Productpage({userid}){
     const navigate=useNavigate()
     const[count,setcount]=useState(0);
     const [products, setProducts] = useState([]);
-    const handleincrease=()=>{
-        setcount(count+1)
-   
+    const updatedata={
+        "productPurchase":userid
+     }
+    const handleincrease=async(product)=>{
+        // console.log("proid",product.id)
+       
+        const response= await updateproduct(updatedata,product.id)
+        if(response){
+            console.log("succesfully updated")
+        }
+        else{
+            console.log("failed")
+        }
+        console.log("updated",response)
     }
-    
-    console.log(userid)
-   
-  const handleupdate=async()=>{
-
-  }
-   
-    
-
-    
     useEffect(() => {
         const fetchProducts = async () => {
           try {
@@ -43,25 +44,25 @@ function Productpage({userid}){
                     E mart 
                 </h1>
                 <div className="space-x-4 fixed top-1  right-10 z-[40]">
-                    <button  className="  bg-blue-400 hover:bg-blue-600 text-white px-4 py-2 rounded " onClick={()=>navigate("/Addprod")}>
+                    <button  className="  bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded " onClick={()=>navigate("/Addprod")}>
                         + Add product
                     </button>
-                <button  className="  bg-blue-400 hover:bg-blue-600 text-white px-4 py-2 rounded" onClick={()=>navigate("/Cart")}>
+                <button  className="  bg-blue-600  text-white px-4 py-2 rounded" onClick={()=>navigate("/Cart")}>
                 your Cart
                 </button>
                 </div>
-                <div className=" absolute top-20 flex flex-wrap gap-6 px-10 py-6 bg-white text-blue-600 w-full z-[20] ">
+                <div className=" absolute top-20 flex flex-wrap gap-6 px-10 py-6 bg-white text-blue-600 w-full z-[20]  ">
                     {
                         products.map((i,index)=>{
                             return(
-                                <div  className=" shadow p-4 rounded-lg  border border-gray-300 min-w-full space-y-4"id={index}>
+                                <div  className=" shadow p-4 rounded-lg  border border-gray-300 w-full space-y-4"id={index}>
                                     <h className="font-bold text-gray-600">
                                         {i.productName.toUpperCase()}
                                     </h>
                                     <p className="text-gray-700"><span className="font-semibold">Price:</span> ₹{i.productPrice}</p>
                                     <p className="text-gray-600"><span className="font-semibold">Details:</span> {i.productInfo}</p>
 
-                                    <button className="bg-blue-400 hover:bg-blue-600 text-white px-4 py-2 rounded"  value={i.productId} onClick={handleincrease} >
+                                    <button className="bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded"   onClick={()=>handleincrease(i)} >
                                     <FaCartPlus />Add to Cart
                                     </button>
                                  </div>

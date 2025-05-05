@@ -46,7 +46,7 @@ function LoginPage({set}) {
       <input type="password" name="password" className="border rounded-lg w-full p-2" value={formData.password} onChange={handleChange} required
       />
       <button
-        className=" w-full bg-blue-300 hover:bg-blue-600 rounded-lg text-white font-bold px-3 py-1 "
+        className=" w-full bg-blue-600 hover:bg-green-600 rounded-lg text-white font-bold px-3 py-1 "
         type="submit"
       >
         Login
@@ -57,7 +57,7 @@ function LoginPage({set}) {
       <button
         type="button"
         onClick={() => navigate("/Register")}
-        className=" w-full bg-blue-300 text-white font-bold hover:bg-blue-600 px-3 py-1 rounded-lg"
+        className=" w-full bg-blue-600 text-white font-bold  px-3 py-1 rounded-lg"
       >
         Register
       </button>

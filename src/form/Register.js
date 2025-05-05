@@ -60,7 +60,7 @@ function RegistrationPage() {
            <option value="company">company</option>
         </select>
       <button
-        className=" w-full bg-blue-300 hover:bg-blue-600 rounded-lg text-white font-bold px-3 py-1"
+        className=" w-full bg-blue-600 hover:bg-green-600 rounded-lg text-white font-bold px-3 py-1"
         type="submit"
       >
         Submit
@@ -69,7 +69,7 @@ function RegistrationPage() {
       <button
         type="button"
         onClick={() => navigate("/")}
-        className=" w-full bg-blue-300 hover:bg-blue-600 rounded-lg text-white font-bold px-3 py-1"
+        className=" w-full bg-blue-600  rounded-lg text-white font-bold px-3 py-1"
       >
         Login
       </button>
