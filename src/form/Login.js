@@ -23,7 +23,7 @@ function LoginPage({set}) {
       navigate("/Product");
     } catch (err) {
       console.error("Login failed:", err);
-      setError(err.response?.data?.error || "Login failed. Please try again.");
+      setError(err.response?.data?.error || "Login fa Please try again.");
     }
   };
   
