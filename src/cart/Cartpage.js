@@ -1,22 +1,40 @@
 import { useEffect ,useState} from "react";
-import { fetchproductall } from "../config/axiousInstance";
+import { fetchproductall ,updateproduct} from "../config/axiousInstance";
 import { BsCartCheckFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-function CartPage(){
+function CartPage(userid){
   const navigate=useNavigate();
      const [products, setProducts] = useState([]);
+     const updatedata={productPurchase:null
+
+     }
+     const handleremove=async(product)=>{
+      const response= await updateproduct(updatedata,product.id)
+      if(response){   
+          console.log("removed sucessfully")
+      }
+      else{
+          console.log("failed")
+      }
+      console.log("updated",response)
+  }
     useEffect(() => {
         const fetchProducts = async () => {
           try {
             const data = await fetchproductall();
-            setProducts(data);
+            console.log("productby",data)
+            console.log("userid",userid.userid.id
+            )
+            const filtered=data.filter((p)=>p.productPurchase===String(userid.userid.id))
+            setProducts(filtered);
+            console.log("FILTERED",filtered)
           } catch (err) {
             console.error("Failed to fetch products:", err); 
           }
         };
         fetchProducts();
-      }, []);
+      }, [userid]);
     return(
       
         <div className="flex justify-between items-center px-10 py-4">
@@ -39,7 +57,7 @@ function CartPage(){
                                     <p className="text-gray-700"><span className="font-semibold">Price:</span> ₹{i.productPrice}</p>
                                     <p className="text-gray-600"><span className="font-semibold">Details:</span> {i.productInfo}</p>
                                     <button className="bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded"  > <BsCartCheckFill />Buy</button>
-                                    <button className="ml-5 bg-blue-600 hover:bg-red-600 text-white px-4 py-2 rounded"  > <MdOutlineRemoveShoppingCart />Remove</button>
+                                    <button  onClick={()=>handleremove(i)} className="ml-5 bg-blue-600 hover:bg-red-600 text-white px-4 py-2 rounded"  > <MdOutlineRemoveShoppingCart />Remove</button>
                                  </div>
                             )
                         })

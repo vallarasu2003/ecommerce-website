@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../config/axiousInstance";
 import Productpage from "../productpage/Products";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../slice/UserSlice";
+
 
 function LoginPage({set}) {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const dispatch=useDispatch()
+
+  const [formData, setFormData] = useState({ email: "", password: ""});
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -19,7 +24,7 @@ function LoginPage({set}) {
       const response = await login(formData);
       
       console.log("Login successful:", response);
-      set(response.user.id)
+      set(response.user)
       navigate("/Product");
     } catch (err) {
       console.error("Login failed:", err);
