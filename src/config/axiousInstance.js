@@ -36,15 +36,15 @@ const fetchproductall =async()=>{
         throw err;
     }
 }
-// const fetchuserall =async()=>{
-//   try{
-//       const response=await axios.get(`${URL}/users/all`);
-//       return response.data; 
-//   }
-//   catch(err){
-//       throw err;
-//   }
-// }
+const fetchuserall =async()=>{
+  try{
+      const response=await axios.get(`${URL}/users/all`);
+      return response.data; 
+  }
+  catch(err){
+      throw err;
+  }
+}
 const updateproduct =async(data,id)=>{
   try{ 
 
@@ -56,6 +56,17 @@ const updateproduct =async(data,id)=>{
 
   }
 }
+const updateuser =async(data,id)=>{
+  try{ 
+
+    const response=await axios.put(`${URL}/users/update/${id}`,data);
+    return response.data
+  }
+  catch(err){
+    console.log(err)
+
+  }
+}
 
 
-export { createUser, login ,createproduct,fetchproductall,updateproduct};
+export { createUser, login ,createproduct,fetchproductall,updateproduct,fetchuserall,updateuser};

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../config/axiousInstance";
-import Productpage from "../productpage/Products";
+import { toast } from 'react-toastify';
+
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../slice/UserSlice";
 
 
-function LoginPage({set}) {
+function LoginPage() {
   const dispatch=useDispatch()
 
   const [formData, setFormData] = useState({ email: "", password: ""});
@@ -24,11 +25,17 @@ function LoginPage({set}) {
       const response = await login(formData);
       
       console.log("Login successful:", response);
-      set(response.user)
+      toast.success("Login successful");
+
+      dispatch(loginSuccess({ user: response.user, token: response.token }));
+     
+
+      
       navigate("/Product");
     } catch (err) {
+      toast.error("Login failed");
       console.error("Login failed:", err);
-      setError(err.response?.data?.error || "Login fa Please try again.");
+      setError(err.response?.data?.error || "Login failed Please try again.");
     }
   };
   

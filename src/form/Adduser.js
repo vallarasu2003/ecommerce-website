@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createUser } from "../config/axiousInstance";
 import { toast } from 'react-toastify';
 
-function RegistrationPage() {
+function Adduser() {
   const [formData, setFormData] = useState({ email: "", password: "", role: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function RegistrationPage() {
       console.log("User registered successfully:", response);
 
     } catch (err) {
-      toast.error("Registration failed");
+        toast.error("Registration failed:");
       console.error("Registration failed:", err);
       setError(err.response?.data?.error || "Registration failed. Please try again.");
     }
@@ -29,13 +29,19 @@ function RegistrationPage() {
   };
 
   return (
+    <>
+    <div className="space-x-4 fixed top-1  left-10 z-[40]">
+    <button  className="  bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded " onClick={()=>navigate("/Userlist")}>
+         Back
+     </button>
+     </div>
     <div className="flex justify-center items-center h-screen bg-white">
     <form
       className="bg-white shadow-xl rounded p-8 w-full max-w-sm border border-blue-300 space-y-4"
       onSubmit={handleSubmit}
     >
       <h1 className="text-center text-blue-600 font-bold">
-        The Registration Page
+        Add User
       </h1>
       {error && <p className="text-red-500">{error}</p>}
       <label className="text-blue-600">E-mail</label>
@@ -68,17 +74,11 @@ function RegistrationPage() {
       >
         Submit
       </button>
-      <p className="text-blue-600  text-center">Return to login</p>
-      <button
-        type="button"
-        onClick={() => navigate("/")}
-        className=" w-full bg-blue-600  rounded-lg text-white font-bold px-3 py-1"
-      >
-        Login
-      </button>
+     
     </form>
     </div>
+    </>
   );
 }
 
-export default RegistrationPage;
+export default Adduser;

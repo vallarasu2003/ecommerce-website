@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createproduct } from "../config/axiousInstance";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 function Addproduct() {
@@ -18,8 +19,9 @@ function Addproduct() {
     e.preventDefault();
     try {
       const response = await createproduct(formData);
-      
+      toast.success("Product Created successful");
     } catch (err) {
+      toast.error("Failed to create ");
       console.log("Issue in create", err);
     }
     setFormData({ productName: "", productPrice: "", productInfo: "" ,CompanyRating:"",CompanyDetail:"",CompanyName:""});

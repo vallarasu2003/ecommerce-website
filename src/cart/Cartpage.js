@@ -3,38 +3,43 @@ import { fetchproductall ,updateproduct} from "../config/axiousInstance";
 import { BsCartCheckFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-function CartPage(userid){
+import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+
+function CartPage(){
+    const user = useSelector((state) => state.user.user);
   const navigate=useNavigate();
      const [products, setProducts] = useState([]);
      const updatedata={productPurchase:null
 
      }
-     const handleremove=async(product)=>{
-      const response= await updateproduct(updatedata,product.id)
-      if(response){   
-          console.log("removed sucessfully")
-      }
-      else{
-          console.log("failed")
-      }
-      console.log("updated",response)
-  }
-    useEffect(() => {
-        const fetchProducts = async () => {
-          try {
-            const data = await fetchproductall();
-            console.log("productby",data)
-            console.log("userid",userid.userid.id
-            )
-            const filtered=data.filter((p)=>p.productPurchase===String(userid.userid.id))
-            setProducts(filtered);
-            console.log("FILTERED",filtered)
-          } catch (err) {
-            console.error("Failed to fetch products:", err); 
-          }
-        };
-        fetchProducts();
-      }, [userid]);
+     const fetchProducts = async () => {
+        try {
+          const data = await fetchproductall();
+          const filtered = data.filter((p) => p.productPurchase === String(user.id));
+          setProducts(filtered);
+          console.log("FILTERED", filtered);
+        } catch (err) {
+          console.error("Failed to fetch products:", err);
+        }
+      };
+      
+      useEffect(() => {
+        if (user) fetchProducts();
+      }, [user]);
+      
+      const handleremove = async (product) => {
+        const response = await updateproduct(updatedata, product.id);
+        if (response) {
+            toast.success("Removed from Cart");
+          console.log("removed successfully");
+          await fetchProducts();
+        } else {
+            toast.error(" Failed to removed from Cart");
+          console.log("failed");
+        }
+      };
+      
     return(
       
         <div className="flex justify-between items-center px-10 py-4">
