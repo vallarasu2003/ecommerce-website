@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../config/axiousInstance";
 import { toast } from 'react-toastify';
+import {setUser} from "../slice/UserSlice"
 
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../slice/UserSlice";
+
 
 
 function LoginPage() {
@@ -27,13 +28,13 @@ function LoginPage() {
       console.log("Login successful:", response);
       toast.success("Login successful");
 
-      dispatch(loginSuccess({ user: response.user, token: response.token }));
+      dispatch(setUser( response.user ));
      
 
       
       navigate("/Product");
     } catch (err) {
-      toast.error("Login failed");
+      
       console.error("Login failed:", err);
       setError(err.response?.data?.error || "Login failed Please try again.");
     }

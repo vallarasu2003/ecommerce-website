@@ -5,13 +5,14 @@ import { fetchproductall, updateproduct} from "../config/axiousInstance";
 import { FaCartPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
-import { MdLogout } from "react-icons/md";
-import { logout } from "../slice/UserSlice";
+
 function Productpage(){
-    const dispatch=useDispatch()
-    const user = useSelector((state) => state.user.user);
    
-    
+    const user = useSelector((state) => state.user.userdata);
+   
+    if(user===null){
+        navigate("/")
+    }
 
     const navigate=useNavigate()
     if(user===null){
@@ -23,10 +24,7 @@ function Productpage(){
    
     
     console.log("redux",user)
-   const handlelogout=()=>{
-    dispatch(logout())
-    navigate("/")
-   }
+  
     useEffect(() => {
         if (!user) return;
 
@@ -50,7 +48,7 @@ function Productpage(){
             console.log("succesfully updated")
         }
         else{
-            toast.arror("failed to Cart!");
+            toast.error("failed to Cart!");
             console.log("failed")
         }
         console.log("updated",response)
@@ -76,11 +74,7 @@ function Productpage(){
                 <h1 className=" fixed text-2xl top-1 z-[40] font-bold text-blue-600 border border-white  bg-white  w-full h-[60px]">
                     E mart 
                 </h1>
-                <div className="space-x-4 fixed bottom-1  right-10 z-[40]">
-                <button  className="  bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded " onClick={handlelogout}>
-                <MdLogout /> Logout
-                    </button> 
-                </div>
+               
                 <div className="space-x-4 fixed top-1  right-10 z-[40]">
                    {company && (<button  className="  bg-blue-600 hover:bg-green-600 text-white px-4 py-2 rounded " onClick={()=>navigate("/Addprod")}>
                         + Add product

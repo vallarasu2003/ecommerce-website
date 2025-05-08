@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 
 function CartPage(){
-    const user = useSelector((state) => state.user.user);
+    const user = useSelector((state) => state.user.userdata);
   const navigate=useNavigate();
      const [products, setProducts] = useState([]);
      const updatedata={productPurchase:null
@@ -33,6 +33,7 @@ function CartPage(){
         if (response) {
             toast.success("Removed from Cart");
           console.log("removed successfully");
+          
           await fetchProducts();
         } else {
             toast.error(" Failed to removed from Cart");

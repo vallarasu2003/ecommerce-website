@@ -7,6 +7,7 @@ function Adminpage(){
     const [formData, setFormData] = useState({ email: "", password: "", role: "" });
     const location=useLocation()
     const userdata=location.state
+    console.log(userdata)
     // console.log(userdata)
     
     useEffect(() => {
